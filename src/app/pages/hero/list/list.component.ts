@@ -21,4 +21,12 @@ export class HeroListComponent {
   private loadHeroList(): void {
     this.heroes$ = this.apiService.get_hero_list()
   }
+
+  public editHero(Hero: number) {
+    
+  }
+
+  public deleteHero(idHero: number): void {
+
+  }
 }
