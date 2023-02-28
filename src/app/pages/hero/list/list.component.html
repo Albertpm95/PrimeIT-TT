@@ -1,3 +1,28 @@
-<mat-paginator>
-
-</mat-paginator>
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>List of heroes</h2>
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="!heroes$">There are no heroes to display</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list *ngIf="heroes$">
+        <mat-list-item *ngFor="let hero of heroes$ | async">
+          <div class="hero-info">
+            <div class="id-container"><span class="id">ID: {{hero.id_hero}}</span></div>
+            <div class="name-container"><span class="name">Name: {{hero.name}}</span></div>
+            <div class="actions-container">
+              <button mat-button color="primary" class="edit-button">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button color="accent" class="delete-button">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

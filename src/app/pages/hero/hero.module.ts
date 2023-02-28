@@ -5,6 +5,10 @@ import { HeroRoutingModule } from './hero-routing.module';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HeroListComponent } from './list/list.component';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon'
+import { MatCardModule } from '@angular/material/card'
 
 @NgModule({
   declarations: [
@@ -13,7 +17,11 @@ import { HeroListComponent } from './list/list.component';
   imports: [
     CommonModule,
     HeroRoutingModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
   ]
 })
 export class HeroModule { }

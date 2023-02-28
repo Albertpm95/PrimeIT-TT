@@ -1,0 +1,46 @@
+.container {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mat-card {
+    width: min(70vw, 100%);
+    mat-card-content {
+      mat-list {
+        mat-list-item {
+          padding: 1rem;
+          .hero-info {
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+            .id-container {
+              width: 40px;
+              display: flex;
+              justify-content: center;
+              height: 100%;
+            }
+            .name-container {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+            }
+            .actions-container {
+              height: 100%;
+              display: flex;
+              flex-flow: row nowrap;
+              justify-content: space-around;
+
+              button + button {
+                margin-left: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
