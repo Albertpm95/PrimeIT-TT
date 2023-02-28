@@ -28,6 +28,33 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "baseUrl": "src",
+    "paths": {
+      "@constants": [
+        "app/constants"
+      ],
+      "@pages/*": [
+        "app/pages/*"
+      ],
+      "@components/*": [
+        "app/pages/components/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@guards/*": [
+        "app/guards/*"
+      ],
+      "@interceptors/*": [
+        "app/interceptors/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@models/*": [
+        "app/models/*"
+      ]
+    }
   }
 }
