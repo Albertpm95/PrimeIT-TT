@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_ENDPOINTS } from '@constants';
 import { Hero } from '@models/hero';
 import { Observable } from 'rxjs';
-import { API_ENDPOINTS } from '@constants'
 import { FakeDBService } from './fake_db.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +14,28 @@ export class ApiService {
 
   constructor(private http: HttpClient, private fake_db: FakeDBService) { }
 
-  get_hero_list() {
+  get_hero_list(): Observable<Hero[]> {
+    return of(this.fake_db.get_hero_list())
     //return this.http.get<Hero[]>(this.apiUrl + API_ENDPOINTS.HEROES_LIST)
-    return this.fake_db.get_hero_list()
   }
 
-  get_hero_id(id_hero: number) {
+  get_hero_id(id_hero: number): Observable<Hero> {
+    return of(this.fake_db.get_hero_id(id_hero))
     //return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + id_hero)
-    return this.fake_db.get_hero_id(id_hero)
   }
 
-  get_heroes_similar_name_list(parcial_name: string) {
+  get_heroes_similar_name_list(parcial_name: string): Observable<Hero[]> {
+    return of(this.fake_db.get_heroes_similar_name_list(parcial_name))
     //return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + parcial_name)
-    return this.fake_db.get_heroes_similar_name_list(parcial_name)
   }
 
-  update_hero(hero: Hero) {
+  update_hero(hero: Hero): Observable<boolean> {
+    return of(this.fake_db.update_hero(hero))
     //return this.http.post<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_UPDATE, { hero })
-    return this.fake_db.update_hero(hero)
   }
 
-  delete_hero(id_hero: number) {
-    //return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_DELETE + id_hero)
-    return this.fake_db.delete_hero(id_hero)
+  delete_hero(id_hero: number): Observable<boolean> {
+    return of(this.fake_db.delete_hero(id_hero))
+    //return this.http.delete(this.apiUrl + API_ENDPOINTS.HEROES_DELETE + id_hero)
   }
 }

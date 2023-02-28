@@ -53,28 +53,37 @@ export class FakeDBService {
   ]
   heroes$ = new Observable<Hero[]>
 
-  get_hero_list(): Hero[] {
+  public get_hero_list(): Hero[] {
     return this.heroes
   }
 
-  get_hero_id(id_hero: number): Hero {
+  public get_hero_id(id_hero: number): Hero {
     return this.heroes[id_hero]
   }
 
-  get_heroes_similar_name_list(parcial_name: string) {
+  public get_heroes_similar_name_list(parcial_name: string): Hero[] {
+    let heroes_filtered_list: Hero[] = []
     this.heroes.forEach(hero => {
       console.log('Parcial name: ', parcial_name, ' Hero name compared: ', hero.name, ' match result: ', hero.name.match(parcial_name))
+      if (hero.name.match(parcial_name))
+        heroes_filtered_list.push(hero)
     })
+    return heroes_filtered_list
   }
 
-  update_hero(hero: Hero) {
+  public update_hero(hero: Hero): boolean {
+    let updated: boolean = false
     if (hero.id_hero)
       this.heroes[hero.id_hero] = hero
+
+    return updated
   }
 
-  delete_hero(id_hero: number) {
-    console.log('Previo: ', this.heroes)
+  public delete_hero(id_hero: number): boolean {
+    let borrado: boolean = false;
     this.heroes = this.heroes.filter(hero => { hero.id_hero = id_hero })
-    console.log('Deleted: ', this.heroes)
+    if (!this.get_hero_id(id_hero))
+      borrado = false;
+    return borrado
   }
 }
