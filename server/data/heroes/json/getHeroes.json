@@ -1,0 +1,46 @@
+{
+  "data":{
+    "heroes":[
+      {
+        "id_hero": 1,
+        "name": "Spiderman"
+      },
+      {
+        "id_hero": 2,
+        "name": "Superman"
+      },
+            {
+        "id_hero": 3,
+        "name": "Batman"
+      },
+            {
+        "id_hero": 4,
+        "name": "Lobezno"
+      },
+            {
+        "id_hero": 5,
+        "name": "Magneto"
+      },
+            {
+        "id_hero": 6,
+        "name": "Catwoman"
+      },
+            {
+        "id_hero": 7,
+        "name": "Batwoman"
+      },
+            {
+        "id_hero": 8,
+        "name": "Punisher"
+      },
+            {
+        "id_hero": 9,
+        "name": "Dearpool"
+      },
+            {
+        "id_hero": 10,
+        "name": "Thor"
+      }
+    ]
+  }
+}
