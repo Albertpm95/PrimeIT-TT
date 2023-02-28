@@ -4,7 +4,6 @@ import { Hero } from '@models/hero';
 import { Observable } from 'rxjs';
 import { API_ENDPOINTS } from '@constants'
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,14 +13,22 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   get_hero_list(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.apiUrl + API_ENDPOINTS.Heroes)
+    return this.http.get<Hero[]>(this.apiUrl + API_ENDPOINTS.HEROES_LIST)
   }
 
-  get_hero_id(id_hero: number) { }
+  get_hero_id(id_hero: number): Observable<Hero> {
+    return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + id_hero)
+  }
 
-  get_hero_similar_name(parcial_name: string) { }
+  get_hero_similar_name(parcial_name: string) {
+    return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + parcial_name)
+  }
 
-  update_hero(hero: Hero) { }
+  update_hero(hero: Hero) {
+    return this.http.post<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_UPDATE, { hero })
+  }
 
-  delete_hero(id_hero: number) { }
+  delete_hero(id_hero: number) {
+    return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_DELETE + id_hero)
+  }
 }
