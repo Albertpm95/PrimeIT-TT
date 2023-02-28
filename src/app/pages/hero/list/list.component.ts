@@ -15,14 +15,10 @@ export class HeroListComponent {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.updateHeroesList()
+    this.loadHeroList()
   }
 
-  private updateHeroesList(): void {
+  private loadHeroList(): void {
     this.heroes$ = this.apiService.get_hero_list()
   }
-
-  ngOnDestroy() {
-  }
-
 }

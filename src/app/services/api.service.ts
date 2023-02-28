@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { API_ENDPOINTS } from '@constants';
 import { Hero } from '@models/hero';
 import { Observable } from 'rxjs';
-import { FakeDBService } from './fake_db.service';
+import { FakeDBService } from './fake-db.service';
 import { of } from 'rxjs';
 
 @Injectable({
