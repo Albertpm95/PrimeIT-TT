@@ -14,6 +14,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     CommonModule,
     MatCardModule
   ],
-  exports: [HeaderComponent]
+  exports: [HeaderComponent, DeleteHeroComponent]
 })
 export class ComponentsModule { }
