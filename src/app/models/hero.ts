@@ -1,4 +1,4 @@
-export class Hero{
+export class Hero {
   id_hero?: number
   name: string = ''
 }
