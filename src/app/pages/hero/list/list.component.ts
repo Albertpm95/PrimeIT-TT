@@ -23,7 +23,7 @@ export class HeroListComponent {
   }
 
   public editHero(Hero: number) {
-    
+
   }
 
   public deleteHero(idHero: number): void {

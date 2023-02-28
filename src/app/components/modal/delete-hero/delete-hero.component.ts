@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Hero } from '@models/hero';
 
 @Component({
   selector: 'app-delete-hero',
@@ -8,4 +9,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class DeleteHeroComponent {
 
+  @Input() hero!: Hero
+
+  constructor() { }
+
+  cancel() {
+
+  }
+
+  confirm() { }
 }
