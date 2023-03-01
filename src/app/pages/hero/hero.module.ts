@@ -10,10 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { MatCardModule } from '@angular/material/card'
 import { MatDialogModule } from '@angular/material/dialog';
+import { HeroEditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
-    HeroListComponent
+    HeroListComponent,
+    HeroEditComponent
   ],
   imports: [
     CommonModule,
