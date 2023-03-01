@@ -9,6 +9,7 @@ import { API_ENDPOINTS } from '@constants'
 })
 export class FakeDBService {
 
+  filtered_heroes: Hero[] = []
   heroes: Hero[] = [
     {
       "id_hero": 1,
@@ -51,24 +52,26 @@ export class FakeDBService {
       "name": "Thor"
     }
   ]
-  heroes$ = new Observable<Hero[]>
-
   public get_hero_list(): Hero[] {
     return this.heroes
   }
 
-  public get_hero_id(id_hero: number): Hero {
-    return this.heroes[id_hero]
+  public get_hero_id(id_hero: number): Hero | undefined {
+    return this.heroes.find(hero => { hero.id_hero === id_hero })
   }
 
   public get_heroes_similar_name_list(parcial_name: string): Hero[] {
-    let heroes_filtered_list: Hero[] = []
-    this.heroes.forEach(hero => {
-      console.log('Parcial name: ', parcial_name, ' Hero name compared: ', hero.name, ' match result: ', hero.name.match(parcial_name))
-      if (hero.name.match(parcial_name))
-        heroes_filtered_list.push(hero)
-    })
-    return heroes_filtered_list
+    /*    
+        let heroes_filtered_list: Hero[] = []
+        this.heroes.filter(hero => {hero.name.match(parcial_name) })
+        this.heroes.forEach(hero => {
+          console.log('Parcial name: ', parcial_name, ' Hero name compared: ', hero.name, ' match result: ', hero.name.match(parcial_name))
+          if (hero.name.match(parcial_name))
+            heroes_filtered_list.push(hero)
+        })
+        return heroes_filtered_list
+      */
+    return this.heroes.filter(hero => { hero.name.match(parcial_name) })
   }
 
   public update_hero(hero: Hero): boolean {
@@ -80,10 +83,13 @@ export class FakeDBService {
   }
 
   public delete_hero(id_hero: number): boolean {
+    console.log(this.heroes)
     let borrado: boolean = false;
-    this.heroes = this.heroes.filter(hero => { hero.id_hero = id_hero })
+    this.filtered_heroes = this.heroes.splice(id_hero, 1)
+
     if (!this.get_hero_id(id_hero))
       borrado = false;
+    console.log(this.filtered_heroes)
     return borrado
   }
 }

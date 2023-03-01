@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Hero } from '@models/hero';
 
 @Component({
@@ -9,13 +10,15 @@ import { Hero } from '@models/hero';
 })
 export class DeleteHeroComponent {
 
-  @Input() hero!: Hero
+  hero!: Hero
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<DeleteHeroComponent>, @Inject(MAT_DIALOG_DATA) public data: Hero) { }
 
   cancel() {
-
+    this.dialogRef.close(false)
   }
 
-  confirm() { }
+  confirm() {
+    this.dialogRef.close(true)
+  }
 }

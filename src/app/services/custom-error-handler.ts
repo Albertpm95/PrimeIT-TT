@@ -8,10 +8,11 @@ export class CustomErrorHandler implements ErrorHandler {
 
   handleError(error: unknown): void {
     if (error instanceof Error) {
+      console.log(error)
       this.snakbar.open(
         'Error desconocido',
         'Close',
-        { duration: 2000 }
+        { duration: 50 }
       )
     }
   }

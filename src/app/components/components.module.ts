@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { DeleteHeroComponent } from './modal/delete-hero/delete-hero.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,9 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   imports: [
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [HeaderComponent, DeleteHeroComponent]
 })

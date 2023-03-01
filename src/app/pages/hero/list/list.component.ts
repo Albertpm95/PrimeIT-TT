@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Hero } from '@models/hero';
 import { ApiService } from '@services/api.service';
+import { DeleteHeroComponent } from 'app/components/modal/delete-hero/delete-hero.component';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -12,7 +14,7 @@ export class HeroListComponent {
 
   heroes$: Observable<Hero[]> = new Observable<Hero[]>
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadHeroList()
@@ -22,11 +24,22 @@ export class HeroListComponent {
     this.heroes$ = this.apiService.get_hero_list()
   }
 
-  public editHero(Hero: number) {
+  public editHero(id_hero: number) {
 
   }
 
-  public deleteHero(idHero: number): void {
-
+  public deleteHero(hero: Hero): void {
+    if (hero.id_hero) {
+      let dialogRef = this.dialog.open(DeleteHeroComponent, {
+        data: hero,
+        disableClose: false
+      })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          if (hero.id_hero)
+            this.apiService.delete_hero(hero.id_hero)
+        }
+      });
+    }
   }
 }

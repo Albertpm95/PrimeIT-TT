@@ -5,12 +5,14 @@ import { Hero } from '@models/hero';
 import { Observable } from 'rxjs';
 import { FakeDBService } from './fake-db.service';
 import { of } from 'rxjs';
+import { environment } from 'environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  apiUrl: any;
+
+  apiUrl = environment.apiURL;
 
   constructor(private http: HttpClient, private fake_db: FakeDBService) { }
 
@@ -19,7 +21,7 @@ export class ApiService {
     //return this.http.get<Hero[]>(this.apiUrl + API_ENDPOINTS.HEROES_LIST)
   }
 
-  get_hero_id(id_hero: number): Observable<Hero> {
+  get_hero_id(id_hero: number): Observable<Hero | undefined> {
     return of(this.fake_db.get_hero_id(id_hero))
     //return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + id_hero)
   }
