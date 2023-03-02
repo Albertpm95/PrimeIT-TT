@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -16,6 +17,8 @@ import { Observable } from 'rxjs/internal/Observable';
 export class HeroListComponent {
 
   heroes$: Observable<Hero[]> = new Observable<Hero[]>
+
+
   constructor(private apiService: ApiService, private dialog: MatDialog, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
@@ -26,15 +29,20 @@ export class HeroListComponent {
     this.heroes$ = this.apiService.get_hero_list()
   }
 
-  public editHero(idHero: number): void {
-    if (idHero) {
-      console.log(idHero)
+  public searchingHeroName() {
+    console.log('Filtering heroes by name')
+  }
+
+  public editHero(idHero?: number): void {
+    if (idHero)
       this.router.navigate([Routers.HEROES + '/' + Features.EDIT, { idHero: idHero }])
-    }
+  }
+
+  public addHero(): void {
+    this.router.navigate([Routers.HEROES + '/' + Features.EDIT])
   }
 
   public deleteHero(hero: Hero): void {
-    console.log('Heroe seleccionado: ', hero)
     if (hero.idHero) {
       let dialogRef = this.dialog.open(DeleteHeroComponent, {
         data: hero,

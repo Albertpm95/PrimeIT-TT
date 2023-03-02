@@ -5,6 +5,18 @@
         <h2>List of heroes</h2>
       </mat-card-title>
       <mat-card-subtitle *ngIf="!heroes$">There are no heroes to display</mat-card-subtitle>
+      <form formControl="partial_name_input" (onSubmit)="searchingHeroName()">
+        <mat-form-field>
+          <mat-label for="partial_name">Filter heroes by name</mat-label>
+          <input matInput id="partial_name">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button mat-button color="primary" type="submit">Filter</button>
+      </form>
+      <button mat-button color="primary" class="edit-button" (click)="addHero()">
+        <mat-icon>add</mat-icon>
+        Create new hero
+      </button>
     </mat-card-header>
     <mat-card-content>
       <mat-list *ngIf="heroes$">
