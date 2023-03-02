@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DirectivesModule } from 'app/directives/directives.module';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ]
 })
 export class HeroModule { }
