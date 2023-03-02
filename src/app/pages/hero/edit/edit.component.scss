@@ -1,0 +1,32 @@
+.container {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  mat-card {
+    mat-card-content {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      form {
+        display: flex;
+        flex-direction: column;
+        mat-form-field {
+          margin: 1rem 0;
+        }
+      }
+    }
+    mat-card-actions {
+      padding: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      button {
+        margin: 1rem;
+      }
+    }
+  }
+}

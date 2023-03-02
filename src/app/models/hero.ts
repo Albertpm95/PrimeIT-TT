@@ -1,4 +1,4 @@
 export class Hero {
-  id_hero?: number
+  idHero?: number
   name: string = ''
 }

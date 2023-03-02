@@ -26,22 +26,23 @@ export class HeroListComponent {
     this.heroes$ = this.apiService.get_hero_list()
   }
 
-  public editHero(id_hero: number): void {
-    if (id_hero) {
-      this.router.navigate([Routers.HEROES + '/' + Features.EDIT, { id_hero: id_hero }])
+  public editHero(idHero: number): void {
+    if (idHero) {
+      console.log(idHero)
+      this.router.navigate([Routers.HEROES + '/' + Features.EDIT, { idHero: idHero }])
     }
   }
 
   public deleteHero(hero: Hero): void {
     console.log('Heroe seleccionado: ', hero)
-    if (hero.id_hero) {
+    if (hero.idHero) {
       let dialogRef = this.dialog.open(DeleteHeroComponent, {
         data: hero,
         disableClose: false
       })
       dialogRef.afterClosed().subscribe(result => {
-        if (result && hero.id_hero) {
-          this.apiService.delete_hero(hero.id_hero)
+        if (result && hero.idHero) {
+          this.apiService.delete_hero(hero.idHero)
           this.snackbar.open('Se ha eliminado al heroe ' + hero.name)
         }
       });

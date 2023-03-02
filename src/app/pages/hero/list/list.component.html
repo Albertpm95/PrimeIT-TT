@@ -9,11 +9,11 @@
     <mat-card-content>
       <mat-list *ngIf="heroes$">
         <mat-list-item *ngFor="let hero of heroes$ | async">
-          <div class="hero-info" *ngIf="hero.id_hero">
-            <div class="id-container"><span class="id">ID: {{hero.id_hero}}</span></div>
+          <div class="hero-info" *ngIf="hero.idHero">
+            <div class="id-container"><span class="id">ID: {{hero.idHero}}</span></div>
             <div class="name-container"><span class="name">Name: {{hero.name}}</span></div>
             <div class="actions-container">
-              <button mat-button color="primary" class="edit-button" (click)="editHero(hero.id_hero)">
+              <button mat-button color="primary" class="edit-button" (click)="editHero(hero.idHero)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-button color="accent" class="delete-button" (click)="deleteHero(hero)">

@@ -12,18 +12,24 @@ import { environment } from 'environments/environment'
 })
 export class ApiService {
 
+
   apiUrl = environment.apiURL;
 
   constructor(private http: HttpClient, private fake_db: FakeDBService) { }
+
+  create_hero(new_hero: Hero): Observable<Hero> {
+    return of(this.fake_db.create_hero(new_hero))
+    // return this.http.put<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_CREATE, { hero })
+  }
 
   get_hero_list(): Observable<Hero[]> {
     return of(this.fake_db.get_hero_list())
     //return this.http.get<Hero[]>(this.apiUrl + API_ENDPOINTS.HEROES_LIST)
   }
 
-  get_hero_id(id_hero: number): Observable<Hero | undefined> {
-    return of(this.fake_db.get_hero_id(id_hero))
-    //return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + id_hero)
+  get_hero_id(idHero: number): Observable<Hero | undefined> {
+    return of(this.fake_db.get_hero_id(idHero))
+    //return this.http.get<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_EDIT + idHero)
   }
 
   get_heroes_similar_name_list(parcial_name: string): Observable<Hero[]> {
@@ -36,8 +42,8 @@ export class ApiService {
     //return this.http.post<Hero>(this.apiUrl + API_ENDPOINTS.HEROES_UPDATE, { hero })
   }
 
-  delete_hero(id_hero: number): Observable<boolean> {
-    return of(this.fake_db.delete_hero(id_hero))
-    //return this.http.delete(this.apiUrl + API_ENDPOINTS.HEROES_DELETE + id_hero)
+  delete_hero(idHero: number): Observable<boolean> {
+    return of(this.fake_db.delete_hero(idHero))
+    //return this.http.delete(this.apiUrl + API_ENDPOINTS.HEROES_DELETE + idHero)
   }
 }

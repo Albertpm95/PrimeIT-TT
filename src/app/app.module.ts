@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomErrorHandler } from '@services/custom-error-handler';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [

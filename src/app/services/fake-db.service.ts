@@ -8,47 +8,50 @@ import { API_ENDPOINTS } from '@constants'
   providedIn: 'root'
 })
 export class FakeDBService {
+  create_hero(new_hero: Hero): any {
+    throw new Error('Method not implemented.');
+  }
 
   filtered_heroes: Hero[] = []
   heroes: Hero[] = [
     {
-      "id_hero": 1,
+      "idHero": 1,
       "name": "Spiderman"
     },
     {
-      "id_hero": 2,
+      "idHero": 2,
       "name": "Superman"
     },
     {
-      "id_hero": 3,
+      "idHero": 3,
       "name": "Batman"
     },
     {
-      "id_hero": 4,
+      "idHero": 4,
       "name": "Lobezno"
     },
     {
-      "id_hero": 5,
+      "idHero": 5,
       "name": "Magneto"
     },
     {
-      "id_hero": 6,
+      "idHero": 6,
       "name": "Catwoman"
     },
     {
-      "id_hero": 7,
+      "idHero": 7,
       "name": "Batwoman"
     },
     {
-      "id_hero": 8,
+      "idHero": 8,
       "name": "Punisher"
     },
     {
-      "id_hero": 9,
+      "idHero": 9,
       "name": "Dearpool"
     },
     {
-      "id_hero": 10,
+      "idHero": 10,
       "name": "Thor"
     }
   ]
@@ -56,8 +59,8 @@ export class FakeDBService {
     return this.heroes
   }
 
-  public get_hero_id(id_hero: number): Hero | undefined {
-    return this.heroes.find(hero => { hero.id_hero === id_hero })
+  public get_hero_id(idHero: number): Hero | undefined {
+    return this.heroes.find(hero => { hero.idHero === idHero })
   }
 
   public get_heroes_similar_name_list(parcial_name: string): Hero[] {
@@ -76,18 +79,18 @@ export class FakeDBService {
 
   public update_hero(hero: Hero): boolean {
     let updated: boolean = false
-    if (hero.id_hero)
-      this.heroes[hero.id_hero] = hero
+    if (hero.idHero)
+      this.heroes[hero.idHero] = hero
 
     return updated
   }
 
-  public delete_hero(id_hero: number): boolean {
+  public delete_hero(idHero: number): boolean {
     console.log(this.heroes)
     let borrado: boolean = false;
-    this.filtered_heroes = this.heroes.splice(id_hero, 1)
+    this.filtered_heroes = this.heroes.splice(idHero, 1)
 
-    if (!this.get_hero_id(id_hero))
+    if (!this.get_hero_id(idHero))
       borrado = false;
     console.log(this.filtered_heroes)
     return borrado
