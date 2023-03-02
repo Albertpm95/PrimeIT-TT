@@ -3,16 +3,14 @@ import { Injectable } from '@angular/core';
 import { Hero } from '@models/hero';
 import { Observable } from 'rxjs';
 import { API_ENDPOINTS } from '@constants'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FakeDBService {
-  create_hero(new_hero: Hero): any {
-    throw new Error('Method not implemented.');
-  }
 
-  filtered_heroes: Hero[] = []
+  constructor(private snackbar: MatSnackBar) { }
   heroes: Hero[] = [
     {
       "idHero": 1,
@@ -55,6 +53,13 @@ export class FakeDBService {
       "name": "Thor"
     }
   ]
+
+  public create_hero(new_hero: Hero): any {
+    new_hero.idHero = this.fake_new_id_generator()
+    this.heroes.push(new_hero)
+    this.snackbar.open('Created hero', 'Close', { duration: 2000 })
+  }
+
   public get_hero_list(): Hero[] {
     return this.heroes
   }
@@ -68,35 +73,37 @@ export class FakeDBService {
   }
 
   public get_heroes_similar_name_list(parcial_name: string): Hero[] {
-    /*    
-        let heroes_filtered_list: Hero[] = []
-        this.heroes.filter(hero => {hero.name.match(parcial_name) })
-        this.heroes.forEach(hero => {
-          console.log('Parcial name: ', parcial_name, ' Hero name compared: ', hero.name, ' match result: ', hero.name.match(parcial_name))
-          if (hero.name.match(parcial_name))
-            heroes_filtered_list.push(hero)
-        })
-        return heroes_filtered_list
-      */
-    return this.heroes.filter(hero => { hero.name.match(parcial_name) })
+    let filteredHeroes: Hero[] = []
+    this.heroes.filter(hero => {
+      if (hero.name.includes(parcial_name)) {
+        filteredHeroes.push(hero)
+      }
+    })
+    return filteredHeroes
   }
 
-  public update_hero(hero: Hero): boolean {
+  public update_hero(updatedHero: Hero): boolean {
     let updated: boolean = false
-    if (hero.idHero)
-      this.heroes[hero.idHero] = hero
-
+    if (updatedHero.idHero) {
+      let index = this.heroes.findIndex(hero => hero.idHero === updatedHero.idHero)
+      this.heroes[index] = updatedHero
+      updated = true
+    }
     return updated
   }
 
   public delete_hero(idHero: number): boolean {
-    console.log(this.heroes)
     let borrado: boolean = false;
-    this.filtered_heroes = this.heroes.splice(idHero, 1)
+    let index = this.heroes.findIndex(hero => hero.idHero === idHero)
+    this.heroes.splice(index, 1)
 
-    if (!this.get_hero_id(idHero))
+    if (this.get_hero_id(idHero))
       borrado = false;
-    console.log(this.filtered_heroes)
+
     return borrado
+  }
+
+  private fake_new_id_generator(): number {
+    return Math.floor((Math.random() * 100) + 1)
   }
 }

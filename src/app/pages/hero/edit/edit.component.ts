@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,23 +19,23 @@ export class HeroEditComponent {
   loading: boolean = true
   router_paths = Routers
 
-  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private activatedRouter: ActivatedRoute, private router: Router, private snackbar: MatSnackBar) { }
+  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private activatedRouter: ActivatedRoute, private router: Router, private snackbar: MatSnackBar, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.activatedRouter.queryParams.subscribe((params) => {
-      this.apiService.get_hero_id(params['idHero'])
-        .subscribe(
-          hero => {
-            this.heroExists = hero
-            console.log(params, hero)
-            if (this.heroExists instanceof Hero)
-              this.loadHeroForm()
-            else
-              this.initializeHeroForm()
-
-          }
-        )
-    })
+    const idHero = this.activatedRouter.snapshot.params['idHero']
+    if (idHero) {
+      this.apiService.get_hero_id(idHero).subscribe(hero => {
+        if (hero) {
+          this.heroExists = hero
+          this.loadHeroForm()
+        }
+        else
+          this.initializeHeroForm()
+      })
+    }
+    else {
+      this.initializeHeroForm()
+    }
   }
 
   private initializeHeroForm(): void {
@@ -45,7 +45,6 @@ export class HeroEditComponent {
     this.loading = false;
   }
   private loadHeroForm(): void {
-    console.log(this)
     this.heroForm = this.formBuilder.group({
       idHero: [this.heroExists?.idHero, Validators.required],
       name: [this.heroExists?.name, Validators.required]
@@ -55,14 +54,16 @@ export class HeroEditComponent {
 
   public save(): void {
     if (this.heroForm.valid) {
-      if (this.heroForm.controls['idHero'] && this.heroExists instanceof Hero) {
-        this.apiService.update_hero(this.heroExists)
+      if (this.heroForm.controls['idHero'] && this.heroExists) {
+        let hero: Hero = new Hero(this.heroForm.value.name, this.heroForm.value.idHero)
+        this.apiService.update_hero(hero)
       }
       else if (!this.heroExists) {
-        console.log(this.heroForm.value)
-        //this.apiService.create_hero(this.heroForm.controls)
+        let hero: Hero = new Hero(this.heroForm.value.name)
+        this.apiService.create_hero(hero)
       }
     }
+    this.router.navigateByUrl(Routers.HEROES + '/' + Features.LIST)
   }
 
   public cancel(): void {

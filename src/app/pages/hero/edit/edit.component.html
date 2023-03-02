@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!loading">
   <mat-card *ngIf="heroForm">
     <mat-card-header>
       <mat-card-title>
@@ -7,10 +7,10 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form formGroup="heroForm">
+      <form [formGroup]="heroForm">
         <mat-form-field *ngIf="heroExists && heroExists.idHero">
           <mat-label for="idHero">Hero ID: </mat-label>
-          <input matInput name="idHero" formControlName="idHero" readonly disabled>
+          <input matInput name="idHero" formControlName="idHero" readonly [disabled]="true">
         </mat-form-field>
         <mat-form-field>
           <mat-label for="name">Hero name:</mat-label>
@@ -19,7 +19,7 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button color="warning" (click)="save()">Save heroe</button>
+      <button mat-button color="warning" (click)="save()" [disabled]="!heroForm.valid">Save heroe</button>
       <button mat-button color="warning" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </mat-card>

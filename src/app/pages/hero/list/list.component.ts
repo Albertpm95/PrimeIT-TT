@@ -7,6 +7,7 @@ import { Features, Routers } from '@constants';
 import { Hero } from '@models/hero';
 import { ApiService } from '@services/api.service';
 import { DeleteHeroComponent } from 'app/components/modal/delete-hero/delete-hero.component';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -17,12 +18,19 @@ import { Observable } from 'rxjs/internal/Observable';
 export class HeroListComponent {
 
   heroes$: Observable<Hero[]> = new Observable<Hero[]>
-
+  partial_name_input = new FormControl('')
 
   constructor(private apiService: ApiService, private dialog: MatDialog, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.loadHeroList()
+    this.partial_name_input.valueChanges.subscribe(partial_name => {
+      if (partial_name && partial_name?.length >= 3)
+        this.heroes$ = this.apiService.get_heroes_similar_name_list(partial_name)
+      else
+        this.heroes$ = this.apiService.get_hero_list()
+    })
+
   }
 
   private loadHeroList(): void {

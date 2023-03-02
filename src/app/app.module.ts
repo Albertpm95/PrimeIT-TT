@@ -1,13 +1,12 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CustomErrorHandler } from '@services/custom-error-handler';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 @NgModule({
   declarations: [
@@ -22,10 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     BrowserAnimationsModule,
     MatSnackBarModule
   ],
-  providers: [{
-    provide: ErrorHandler,
-    useClass: CustomErrorHandler
-  }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
