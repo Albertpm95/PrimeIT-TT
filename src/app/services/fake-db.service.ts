@@ -60,7 +60,11 @@ export class FakeDBService {
   }
 
   public get_hero_id(idHero: number): Hero | undefined {
-    return this.heroes.find(hero => { hero.idHero === idHero })
+    let hero_found: Hero | undefined
+    this.heroes.find(hero => {
+      if (hero.idHero == idHero) hero_found = hero
+    })
+    return hero_found
   }
 
   public get_heroes_similar_name_list(parcial_name: string): Hero[] {
