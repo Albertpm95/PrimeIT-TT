@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Features, Routers } from '@constants';
 import { Hero } from '@models/hero';
 import { ApiService } from '@services/api.service';
 import { DeleteHeroComponent } from 'app/components/modal/delete-hero/delete-hero.component';
-import { of } from 'rxjs';
+import { map } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -18,27 +20,51 @@ import { Observable } from 'rxjs/internal/Observable';
 export class HeroListComponent {
 
   heroes$: Observable<Hero[]> = new Observable<Hero[]>
+  heroes: Hero[] = []
   partial_name_input = new FormControl('')
+  displayedColumns: string[] = ['ID', 'name', 'actions']
+
+  @ViewChild(MatPaginator) paginator: any = MatPaginator
+
+  dataSource = new MatTableDataSource<Hero>()
+  /*
+    dataSourceObs$: Observable<MatTableDataSource<Hero>> = this.apiService.get_hero_list().pipe(
+      map(heroes => {
+        const dataSource = new MatTableDataSource<Hero>()
+        this.dataSource.data = heroes;
+        return dataSource
+      })
+    )
+  */
 
   constructor(private apiService: ApiService, private dialog: MatDialog, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.loadHeroList()
-    this.partial_name_input.valueChanges.subscribe(partial_name => {
-      if (partial_name && partial_name?.length >= 3)
-        this.heroes$ = this.apiService.get_heroes_similar_name_list(partial_name)
-      else
-        this.heroes$ = this.apiService.get_hero_list()
-    })
 
+    /*    this.partial_name_input.valueChanges.subscribe(partial_name => {
+          if (partial_name && partial_name?.length >= 3) {
+            this.heroes$ = this.apiService.get_heroes_similar_name_list(partial_name)
+            this.heroes$.pipe(map(heroes => {
+              const dataSource = new MatTableDataSource<Hero>();
+              dataSource.data = heroes
+              return dataSource
+            }))
+          }
+          else
+            this.loadHeroList()
+        })
+    */
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator
   }
 
   private loadHeroList(): void {
-    this.heroes$ = this.apiService.get_hero_list()
-  }
+    this.apiService.get_hero_list().subscribe(heroes => { this.dataSource.data = heroes; }
 
-  public searchingHeroName() {
-    console.log('Filtering heroes by name')
+    )
   }
 
   public editHero(idHero?: number): void {

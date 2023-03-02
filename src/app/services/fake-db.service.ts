@@ -1,58 +1,26 @@
-import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core';
-import { Hero } from '@models/hero';
-import { Observable } from 'rxjs';
-import { API_ENDPOINTS } from '@constants'
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Hero } from '@models/hero';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FakeDBService {
 
+  heroes: Hero[] = []
+  heroNames: string[] = ['Superman', 'Supergirl', 'Superwomam', 'Spiderman', 'Spiderwoman', 'Catman', 'Catwoman', 'Batman', 'Batwoman', 'Hulk', 'She-Hulk', 'Cpt. America', 'Cpt. Marvel', 'Iron Man', 'Deadpool', 'Tony Stark', 'Peter Parker', 'Invencible', 'Homelander', 'Profesor Charles Xavier', 'Lobezno', 'Anivia', 'Shaco', 'Varian Wrynn', 'Khadgar', 'Legolas', 'Aragorn', 'Shang-Chi', 'Inspector Gadget',]
   constructor(private snackbar: MatSnackBar) { }
-  heroes: Hero[] = [
-    {
-      "idHero": 1,
-      "name": "Spiderman"
-    },
-    {
-      "idHero": 2,
-      "name": "Superman"
-    },
-    {
-      "idHero": 3,
-      "name": "Batman"
-    },
-    {
-      "idHero": 4,
-      "name": "Lobezno"
-    },
-    {
-      "idHero": 5,
-      "name": "Magneto"
-    },
-    {
-      "idHero": 6,
-      "name": "Catwoman"
-    },
-    {
-      "idHero": 7,
-      "name": "Batwoman"
-    },
-    {
-      "idHero": 8,
-      "name": "Punisher"
-    },
-    {
-      "idHero": 9,
-      "name": "Dearpool"
-    },
-    {
-      "idHero": 10,
-      "name": "Thor"
+
+  initializeFakeDB() {
+    for (let i = 1; i <= 7000; i++) {
+      let temp_hero: Hero = new Hero(this.getRandomName(), i)
+      this.heroes.push(temp_hero)
     }
-  ]
+  }
+
+  private getRandomName(): string {
+    return this.heroNames[Math.floor(Math.random() * this.heroNames.length)]
+  }
 
   public create_hero(new_hero: Hero): any {
     new_hero.idHero = this.fake_new_id_generator()

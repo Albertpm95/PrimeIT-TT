@@ -6,6 +6,7 @@ import { HeroEditComponent } from './edit/edit.component';
 import { HeroRoutingModule } from './hero-routing.module';
 import { HeroListComponent } from './list/list.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -13,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
 import { DirectivesModule } from 'app/directives/directives.module';
 
 
@@ -35,7 +36,9 @@ import { DirectivesModule } from 'app/directives/directives.module';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    DirectivesModule
+    DirectivesModule,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class HeroModule { }

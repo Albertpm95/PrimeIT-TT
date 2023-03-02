@@ -12,7 +12,6 @@ import { environment } from 'environments/environment'
 })
 export class ApiService {
 
-
   apiUrl = environment.apiURL;
 
   constructor(private http: HttpClient, private fake_db: FakeDBService) { }
@@ -45,5 +44,9 @@ export class ApiService {
   delete_hero(idHero: number): Observable<boolean> {
     return of(this.fake_db.delete_hero(idHero))
     //return this.http.delete(this.apiUrl + API_ENDPOINTS.HEROES_DELETE + idHero)
+  }
+
+  public initializeFakeDB(): void {
+    this.fake_db.initializeFakeDB()
   }
 }

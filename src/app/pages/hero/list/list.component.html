@@ -4,7 +4,6 @@
       <mat-card-title>
         <h2>List of heroes</h2>
       </mat-card-title>
-      <mat-card-subtitle *ngIf="!heroes$">There are no heroes to display</mat-card-subtitle>
       <mat-form-field>
         <mat-label for="partial_name">Filter heroes by name</mat-label>
         <input matInput id="partial_name" [formControl]="partial_name_input">
@@ -16,22 +15,30 @@
       </button>
     </mat-card-header>
     <mat-card-content>
-      <mat-list *ngIf="heroes$">
-        <mat-list-item *ngFor="let hero of heroes$ | async">
-          <div class="hero-info" *ngIf="hero.idHero">
-            <div class="id-container"><span class="id">ID: {{hero.idHero}}</span></div>
-            <div class="name-container"><span class="name">Name: {{hero.name}}</span></div>
-            <div class="actions-container">
-              <button mat-button color="primary" class="edit-button" (click)="editHero(hero.idHero)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-button color="accent" class="delete-button" (click)="deleteHero(hero)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="ID">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let hero">{{hero.idHero}}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let hero">{{hero.name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let hero">
+            <button mat-button color="primary" class="edit-button" (click)="editHero(hero.idHero)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button color="accent" class="delete-button" (click)="deleteHero(hero)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSize]="5" [pageSizeOptions]="[10, 20, 50, 100, 1000]" showFirstLastButtons></mat-paginator>
     </mat-card-content>
   </mat-card>
 </div>
