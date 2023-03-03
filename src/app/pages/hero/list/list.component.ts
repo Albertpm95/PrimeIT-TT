@@ -27,49 +27,22 @@ export class HeroListComponent {
   @ViewChild(MatPaginator) paginator: any = MatPaginator
 
   dataSource = new MatTableDataSource<Hero>()
-  /*
-    dataSourceObs$: Observable<MatTableDataSource<Hero>> = this.apiService.get_hero_list().pipe(
-      map(heroes => {
-        const dataSource = new MatTableDataSource<Hero>()
-        this.dataSource.data = heroes;
-        return dataSource
-      })
-    )
-  */
 
   constructor(private apiService: ApiService, private dialog: MatDialog, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.loadHeroList()
+    this.initializeSearchInput()
 
-    /*    this.partial_name_input.valueChanges.subscribe(partial_name => {
-          if (partial_name && partial_name?.length >= 3) {
-            this.heroes$ = this.apiService.get_heroes_similar_name_list(partial_name)
-            this.heroes$.pipe(map(heroes => {
-              const dataSource = new MatTableDataSource<Hero>();
-              dataSource.data = heroes
-              return dataSource
-            }))
-          }
-          else
-            this.loadHeroList()
-        })
-    */
   }
+
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator
   }
 
-  private loadHeroList(): void {
-    this.apiService.get_hero_list().subscribe(heroes => { this.dataSource.data = heroes; }
-
-    )
-  }
-
   public editHero(idHero?: number): void {
-    if (idHero)
-      this.router.navigate([Routers.HEROES + '/' + Features.EDIT, { idHero: idHero }])
+    if (idHero) this.router.navigate([Routers.HEROES + '/' + Features.EDIT, { idHero: idHero }])
   }
 
   public addHero(): void {
@@ -89,5 +62,22 @@ export class HeroListComponent {
         }
       });
     }
+  }
+
+  private loadHeroList(): void {
+    this.apiService.get_hero_list().subscribe(heroes => { this.dataSource.data = heroes; }
+    )
+  }
+
+  private initializeSearchInput(): void {
+    this.partial_name_input.valueChanges.subscribe(partial_name => {
+      if (partial_name && partial_name?.length >= 3) {
+        this.apiService.get_heroes_similar_name_list(partial_name).subscribe(filtered_heroes => {
+          this.dataSource.data = filtered_heroes
+        })
+      }
+      else
+        this.loadHeroList()
+    })
   }
 }
