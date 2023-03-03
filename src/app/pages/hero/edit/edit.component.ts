@@ -67,7 +67,7 @@ export class HeroEditComponent {
   }
 
   public cancel(): void {
-    this.heroExists ? this.snackbar.open('Se ha cancelado la operacion de edicion.') : this.snackbar.open('No se ha creado ningun heroe.')
+    this.heroExists ? this.snackbar.open('The edit operation has ben canceled.') : this.snackbar.open('Hero creation canceled.')
     this.router.navigateByUrl(Routers.HEROES + '/' + Features.LIST)
   }
 
