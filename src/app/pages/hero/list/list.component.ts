@@ -33,7 +33,6 @@ export class HeroListComponent {
   ngOnInit() {
     this.loadHeroList()
     this.initializeSearchInput()
-
   }
 
 

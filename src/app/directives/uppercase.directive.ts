@@ -10,6 +10,5 @@ export class UppercaseDirective {
   @HostListener('input', ['$event'])
   onInput() {
     this.elem.nativeElement['value'] = this.elem.nativeElement['value'].toUpperCase()
-    console.log(this.elem.nativeElement['value'])
   }
 }
